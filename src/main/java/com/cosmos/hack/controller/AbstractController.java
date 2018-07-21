@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
