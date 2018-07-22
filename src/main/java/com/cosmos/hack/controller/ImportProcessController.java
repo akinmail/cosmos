@@ -55,8 +55,7 @@ public class ImportProcessController  {
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public @ResponseBody
-    Optional<ImportProcess> get(@PathVariable String id) {
+    public @ResponseBody Optional<ImportProcess> get(@PathVariable String id) {
         return (Optional<ImportProcess>) this.repo.findById(id);
     }
 
