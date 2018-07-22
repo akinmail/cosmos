@@ -3,6 +3,7 @@ package com.cosmos.hack.controller;
 import com.cosmos.hack.exception.ResourceNotFoundException;
 import com.cosmos.hack.model.ImportProcess;
 import com.cosmos.hack.model.Shipment;
+import com.cosmos.hack.model.binding.CompleteShipment;
 import com.cosmos.hack.model.document.ImportPermit;
 import com.cosmos.hack.repository.ImportProcessRepository;
 import com.cosmos.hack.repository.ShipmentProcessRepository;
@@ -99,6 +100,36 @@ public class ShipmentController  {
 
         }else {
             throw new ResourceNotFoundException("process id not found");
+        }
+    }
+
+    @RequestMapping(value="/complete/{processid}/{shipmentid}", method=RequestMethod.POST)
+    public void completeShipment(@PathVariable String processid, @PathVariable String shipmentid, @RequestBody CompleteShipment completeShipment){
+        Optional<ImportProcess> importProcess = importProcessRepository.findById(processid);
+        if(importProcess.isPresent()) {
+            ImportProcess importProcess1 = importProcess.get();
+            if(importProcess1.getShipment()!=null){
+                boolean found=false;
+                for(Shipment s : importProcess1.getShipment()){
+                    if(s.getId().equalsIgnoreCase(shipmentid)){
+                        List<Shipment> shipments = importProcess1.getShipment();
+                        shipments.remove(s);
+                        s.setShipmentComplete(true);
+                        s.setDemurrage(completeShipment.getDemurrage());
+                        shipments.add(s);
+                        importProcess1.setShipment(shipments);
+                        found=true;
+                    }
+                }
+                importProcessRepository.save(importProcess1);
+                if(!found){
+                    throw new ResourceNotFoundException("shipment id not found");
+                }
+            }else {
+                throw new ResourceNotFoundException("shipment id not found");
+            }
+        }else {
+            throw new ResourceNotFoundException("shipment id not found");
         }
     }
 

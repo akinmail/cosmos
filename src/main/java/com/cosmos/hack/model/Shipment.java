@@ -20,6 +20,7 @@ public class Shipment {
     public ManufacturerCertificate manufacturerCertificate;
     public Cria cria;
     public boolean isDocumentComplete = false;
+    public boolean isShipmentComplete = false;
     public Float demurrage;
     public User user;
 
@@ -126,6 +127,14 @@ public class Shipment {
 
     public void setDocumentComplete(boolean documentComplete) {
         isDocumentComplete = documentComplete;
+    }
+
+    public boolean isShipmentComplete() {
+        return isShipmentComplete;
+    }
+
+    public void setShipmentComplete(boolean shipmentComplete) {
+        isShipmentComplete = shipmentComplete;
     }
 
     public Float getDemurrage() {
