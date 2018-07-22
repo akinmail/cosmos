@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document
 public class ImportProcess extends AuditModel {
     @Id
@@ -24,7 +26,7 @@ public class ImportProcess extends AuditModel {
 
     private ImportPermit importPermit;
 
-    private Shipment shipment;
+    private List<Shipment> shipment;
 
     public String getId() {
         return id;
@@ -98,11 +100,11 @@ public class ImportProcess extends AuditModel {
         this.importPermit = importPermit;
     }
 
-    public Shipment getShipment() {
+    public List<Shipment> getShipment() {
         return shipment;
     }
 
-    public void setShipment(Shipment shipment) {
+    public void setShipment(List<Shipment> shipment) {
         this.shipment = shipment;
     }
 }

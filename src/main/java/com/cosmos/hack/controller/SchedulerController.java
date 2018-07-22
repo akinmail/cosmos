@@ -20,8 +20,7 @@ public class SchedulerController {
     public List<Shipment> getAll() {
         return importProcessRepository.findAll().stream()
                 .filter(elt -> elt.getShipment() != null)
-                .filter(elt -> elt.getShipment().isDocumentComplete() != false)
-                .map(elt -> elt.getShipment())
+                .flatMap(elt -> elt.getShipment().stream().filter(elt2 -> elt2.isDocumentComplete() == false))
                 .collect(Collectors.toList());
     }
 }

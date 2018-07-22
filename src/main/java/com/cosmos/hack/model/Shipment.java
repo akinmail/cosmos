@@ -8,28 +8,27 @@ import java.util.UUID;
 
 @Document
 public class Shipment {
-    @Id
-    private String id;
-    private String edd;
+    public String id;
+    public String edd;
 
-    private ImportProcess importProcess;
+    public ImportPermit importPermit;
 
-    private Bol bol;
-    private CommercialInvoice commercialInvoice;
-    private Ccvo ccvo;
-    private PackingList packingList;
-    private ManufacturerCertificate manufacturerCertificate;
-    private Cria cria;
-    private boolean isDocumentComplete = false;
-    private Float demurrage;
+    public Bol bol;
+    public CommercialInvoice commercialInvoice;
+    public Ccvo ccvo;
+    public PackingList packingList;
+    public ManufacturerCertificate manufacturerCertificate;
+    public Cria cria;
+    public boolean isDocumentComplete = false;
+    public Float demurrage;
+    public User user;
 
     public Shipment() {
     }
 
     public void copy(Shipment other) {
-        this.id = UUID.randomUUID().toString().replaceAll("-","");
         this.edd = other.edd;
-        this.importProcess = other.importProcess;
+        this.importPermit = other.importPermit;
         this.bol = other.bol;
         this.commercialInvoice = other.commercialInvoice;
         this.ccvo = other.ccvo;
@@ -38,6 +37,7 @@ public class Shipment {
         this.cria = other.cria;
         this.isDocumentComplete = other.isDocumentComplete;
         this.demurrage = other.demurrage;
+        this.user = other.user;
     }
 
     public String getId() {
@@ -56,12 +56,12 @@ public class Shipment {
         this.edd = edd;
     }
 
-    public ImportProcess getImportProcess() {
-        return importProcess;
+    public ImportPermit getImportPermit() {
+        return importPermit;
     }
 
-    public void setImportProcess(ImportProcess importProcess) {
-        this.importProcess = importProcess;
+    public void setImportPermit(ImportPermit importPermit) {
+        this.importPermit = importPermit;
     }
 
     public Bol getBol() {
@@ -126,5 +126,13 @@ public class Shipment {
 
     public void setDemurrage(Float demurrage) {
         this.demurrage = demurrage;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
