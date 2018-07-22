@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Shipment {
     public String id;
     public String edd;
-
+    public String importProcessId;
     public ImportPermit importPermit;
 
     public Bol bol;
@@ -38,6 +38,14 @@ public class Shipment {
         this.isDocumentComplete = other.isDocumentComplete;
         this.demurrage = other.demurrage;
         this.user = other.user;
+    }
+
+    public String getImportProcessId() {
+        return importProcessId;
+    }
+
+    public void setImportProcessId(String importProcessId) {
+        this.importProcessId = importProcessId;
     }
 
     public String getId() {

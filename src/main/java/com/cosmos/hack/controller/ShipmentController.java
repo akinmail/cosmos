@@ -43,6 +43,7 @@ public class ShipmentController  {
                     if(s.getId().equalsIgnoreCase())
                 }*/
                 shipment.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                shipment.setImportProcessId(processid);
                 shipment1.add(shipment);
                 ImportProcess importProcess1 = importProcess.get();
                 importProcess1.setShipment(shipment1);
@@ -54,6 +55,7 @@ public class ShipmentController  {
                 ImportProcess importProcess1 = importProcess.get();
                 List<Shipment> a = new ArrayList<>();
                 shipment.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                shipment.setImportProcessId(processid);
                 a.add(shipment);
                 importProcess1.setShipment(a);
                 importProcessRepository.save(importProcess1);
@@ -82,6 +84,7 @@ public class ShipmentController  {
                     if(s.getId().equalsIgnoreCase(shipmentid)){
                         found = true;
                         s.copy(shipment);
+                        s.setImportProcessId(processid);
                     }
                 }
 

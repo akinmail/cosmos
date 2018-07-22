@@ -42,6 +42,8 @@ public class ImportProcessController  {
         if(json.getShipment()!=null){
             for(Shipment s : json.getShipment()){
                 s.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                json.setId(UUID.randomUUID().toString().replaceAll("-",""));
+                s.setImportProcessId(json.getId());
             }
         }
         ImportProcess created = this.repo.save(json);
