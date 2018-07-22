@@ -31,7 +31,7 @@ public class ShipmentController  {
     }
 
     @RequestMapping(value="/{processid}", method=RequestMethod.POST)
-    public void createShipment(@PathVariable String processid, @RequestBody Shipment shipment) throws IllegalAccessException {
+    public Shipment createShipment(@PathVariable String processid, @RequestBody Shipment shipment) throws IllegalAccessException {
         Optional<ImportProcess> importProcess = importProcessRepository.findById(processid);
         if(importProcess.isPresent()){
             List<Shipment> shipment1 = importProcess.get().getShipment();
@@ -49,6 +49,7 @@ public class ShipmentController  {
                 ImportProcess importProcess1 = importProcess.get();
                 importProcess1.setShipment(shipment1);
                 importProcessRepository.save(importProcess1);
+                return shipment;
             }else{
                 if(!isNull(shipment)){
                     shipment.setDocumentComplete(true);
@@ -60,6 +61,7 @@ public class ShipmentController  {
                 a.add(shipment);
                 importProcess1.setShipment(a);
                 importProcessRepository.save(importProcess1);
+                return shipment;
             }
 
 
@@ -72,7 +74,7 @@ public class ShipmentController  {
 
 
     @RequestMapping(value="/{processid}/{shipmentid}", method=RequestMethod.POST)
-    public void updateShipment(@PathVariable String processid, @PathVariable String shipmentid, @RequestBody Shipment shipment) throws IllegalAccessException {
+    public Shipment updateShipment(@PathVariable String processid, @PathVariable String shipmentid, @RequestBody Shipment shipment) throws IllegalAccessException {
         Optional<ImportProcess> importProcess = importProcessRepository.findById(processid);
         if(importProcess.isPresent()){
             List<Shipment> shipment1 = importProcess.get().getShipment();
@@ -81,17 +83,22 @@ public class ShipmentController  {
                     shipment.setDocumentComplete(true);
                 }
                 boolean found = false;
+                Shipment foundShipment = null;
                 for(Shipment s: shipment1){
                     if(s.getId().equalsIgnoreCase(shipmentid)){
                         found = true;
                         s.copy(shipment);
                         s.setImportProcessId(processid);
+                        foundShipment = s;
                     }
                 }
 
                 ImportProcess importProcess1 = importProcess.get();
                 importProcess1.setShipment(shipment1);
                 importProcessRepository.save(importProcess1);
+                if(foundShipment!=null){
+                    return foundShipment;
+                }
             }else{
                 throw new ResourceNotFoundException("process id and shipment id not found");
             }
@@ -101,6 +108,7 @@ public class ShipmentController  {
         }else {
             throw new ResourceNotFoundException("process id not found");
         }
+        throw new ResourceNotFoundException("process id not found");
     }
 
     @RequestMapping(value="/complete/{processid}/{shipmentid}", method=RequestMethod.POST)
