@@ -1,1 +1,1 @@
-Backend api for our submission to Africa Fintech Foundry Hackathon
+Backend api for our submission to Africa Fintech Foundry Hackathon. This app provides a simple, intuitive process for managing shipping logistics and tracking maritime packages. The goal was to help organizations reduce demmurrage accrued at the port due to delayed clearing of packages. We used Unilever's raw materials supply chain process through Apapa port Lagos state as an example.
